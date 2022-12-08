@@ -1,0 +1,1 @@
+docker run -v "/home/lorenzo/Workspaces/esphome/config:/config" -v "/etc/localtime:/etc/localtime:ro" --network=host --rm -it --privileged esphome/esphome [command]
