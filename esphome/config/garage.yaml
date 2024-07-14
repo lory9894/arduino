@@ -1,0 +1,52 @@
+esphome:
+  name: garage
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  password: ""
+
+wifi:
+  ssid: ""
+  password: ""
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Garage Fallback Hotspot"
+    password: ""
+
+captive_portal:
+
+switch:
+  - platform: gpio
+    pin: D1
+    id: toggle
+      
+binary_sensor:
+  - platform: gpio
+    name: "Toggle Garage Door"
+    pin:
+      number: D6
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+button:
+  - platform: template
+    name: "Garage Door"
+    on_press:
+      - switch.turn_on: toggle
+      - delay: 0.1s
+      - switch.turn_off: toggle
+
+web_server:
+  port: 80
